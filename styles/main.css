@@ -68,8 +68,9 @@ body {
 #scene {
     height: 100%;
     position: absolute;
-    left: 50%;
-    margin-left: -768px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 
 a {
