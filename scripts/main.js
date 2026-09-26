@@ -17,31 +17,50 @@
     quiver = true,
     text = texts[0],
     textIndex = 0,
-    textSize = 45
-
-  function draw () {
-    ctx.clearRect(0, 0, CANVASWIDTH, CANVASHEIGHT)
-    ctx.fillStyle = 'rgb(255, 255, 255)'
-    ctx.textBaseline = 'middle'
-    ctx.fontWeight = 'bold'
-    ctx.font = textSize + 'px \'SimHei\', \'Avenir\', \'Helvetica Neue\', \'Arial\', \'sans-serif\''
-    ctx.fillText(text, (CANVASWIDTH - ctx.measureText(text).width) * 0.5, CANVASHEIGHT * 0.5)
-
-    let imgData = ctx.getImageData(0, 0, CANVASWIDTH, CANVASHEIGHT)
-
-    ctx.clearRect(0, 0, CANVASWIDTH, CANVASHEIGHT)
-
-    for (let i = 0, l = particles.length; i < l; i++) {
-      let p = particles[i]
-      p.inText = false
+    textSize = window.innerWidth < 600 ? 20 : 45;
+  
+  function wrapText(context, text, maxWidth) {
+    let lines = [];
+    let currentLine = '';
+    for (let i = 0; i < text.length; i++) {
+        let char = text[i];
+        let testLine = currentLine + char;
+        let metrics = context.measureText(testLine);
+        if (metrics.width > maxWidth && i > 0) {
+            lines.push(currentLine);
+            currentLine = char;
+        } else {
+            currentLine = testLine;
+        }
     }
-    particleText(imgData)
+    lines.push(currentLine);
+    return lines;
+}
 
-    window.requestAnimationFrame(draw)
-  }
+function draw() {
+    ctx.clearRect(0, 0, CANVASWIDTH, CANVASHEIGHT);
+    ctx.fillStyle = 'rgb(255, 255, 255)';
+    ctx.textBaseline = 'middle';
+    ctx.fontWeight = 'bold';
+    ctx.font = textSize + 'px "SimHei", "Avenir", "Helvetica Neue", "Arial", "sans-serif"';
+    let maxWidth = CANVASWIDTH * 0.8;
+    let lines = wrapText(ctx, text, maxWidth);
+    let lineHeight = textSize * 1.5; 
+    let totalHeight = lines.length * lineHeight;
+    let startY = (CANVASHEIGHT - totalHeight) / 2 + lineHeight / 2;
+    for (let i = 0; i < lines.length; i++) {
+        let lineText = lines[i];
+        let textWidth = ctx.measureText(lineText).width;
+        let startX = (CANVASWIDTH - textWidth) / 2;
+        ctx.fillText(lineText, startX, startY + i * lineHeight);
+    }
+    let imgData = ctx.getImageData(0, 0, CANVASWIDTH, CANVASHEIGHT);
+    ctx.clearRect(0, 0, CANVASWIDTH, CANVASHEIGHT);
+    for (let i = 0; i < particles.length; i++) {
+    }
+}
 
   function particleText (imgData) {
-    // 点坐标获取
     var pxls = []
     for (var w = CANVASWIDTH; w > 0; w -= 3) {
       for (var h = 0; h < CANVASHEIGHT; h += 3) {
