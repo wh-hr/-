@@ -55,7 +55,7 @@ function Star() {
     this.comet = this.giant || first ? false : getProbability(10);
     this.x = getRandInterval(0, width - 10);
     this.y = getRandInterval(0, height);
-    this.r = getRandInterval(1.1, 2.6);
+    this.r = getRandInterval(2, 4.5);
     this.dx = getRandInterval(speedCoeff, 6 * speedCoeff) + (this.comet + 1 - 1) * speedCoeff * getRandInterval(50, 120) + speedCoeff * 2;
     this.dy = -getRandInterval(speedCoeff, 6 * speedCoeff) - (this.comet + 1 - 1) * speedCoeff * getRandInterval(50, 120);
     this.fadingOut = null;
