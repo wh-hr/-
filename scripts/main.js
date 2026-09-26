@@ -6,7 +6,7 @@
   const PARTICLE_NUM = 2400
   const RADIUS = Math.PI * 2
   const CANVASWIDTH = 900
-  const CANVASHEIGHT = 500
+  const CANVASHEIGHT = 320
   const CANVASID = 'canvas'
 
   let texts = ['亲爱的宝宝', '今天是你的十八岁生日呀', '也是我陪你度过的第一个生日', '希望你今后的每一天都能过得开心哦', '也希望我们能永远陪伴着彼此', '爱你哦']
