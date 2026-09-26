@@ -3,7 +3,7 @@
   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
 
   const FRAME_RATE = 60
-  const PARTICLE_NUM = 2500
+  const PARTICLE_NUM = 2200
   const RADIUS = Math.PI * 2
   const CANVASWIDTH = 500
   const CANVASHEIGHT = 150
